@@ -393,29 +393,41 @@
                 const result = await window.auth.registerPatient(patientData);
                 
                 if (result.success) {
-                const lang = window.currentLanguage || 'en';
-                if (lang === 'ar') {
-                    successMsg.textContent = 'تم التسجيل بنجاح! جاري إعادة التوجيه...';
-                } else if (lang === 'tr') {
-                    successMsg.textContent = 'Kayıt başarılı! Yönlendiriliyorsunuz...';
+                    const lang = window.currentLanguage || 'en';
+                    if (lang === 'ar') {
+                        successMsg.textContent = 'تم التسجيل بنجاح! جاري إعادة التوجيه...';
+                    } else if (lang === 'tr') {
+                        successMsg.textContent = 'Kayıt başarılı! Yönlendiriliyorsunuz...';
+                    } else {
+                        successMsg.textContent = 'Registration successful! Redirecting...';
+                    }
+                    successMsg.style.display = 'block';
+                    
+                    // Auto login after registration
+                    setTimeout(async () => {
+                        await window.auth.login(patientData.email, patientData.password, 'patient');
+                        window.location.href = 'index.html';
+                    }, 1500);
                 } else {
-                    successMsg.textContent = 'Registration successful! Redirecting...';
+                    const lang = window.currentLanguage || 'en';
+                    if (lang === 'ar') {
+                        errorMsg.textContent = result.message || 'البريد الإلكتروني مسجل بالفعل';
+                    } else if (lang === 'tr') {
+                        errorMsg.textContent = result.message || 'Bu e-posta adresi zaten kayıtlı';
+                    } else {
+                        errorMsg.textContent = result.message || 'Registration failed. Please try again.';
+                    }
+                    errorMsg.style.display = 'block';
                 }
-                successMsg.style.display = 'block';
-                
-                // Auto login after registration
-                setTimeout(() => {
-                    window.auth.login(patientData.email, patientData.password);
-                    window.location.href = 'index.html';
-                }, 1500);
-            } else {
+            } catch (error) {
+                console.error('Registration error:', error);
                 const lang = window.currentLanguage || 'en';
                 if (lang === 'ar') {
-                    errorMsg.textContent = 'البريد الإلكتروني مسجل بالفعل';
+                    errorMsg.textContent = 'حدث خطأ أثناء التسجيل. يرجى المحاولة مرة أخرى.';
                 } else if (lang === 'tr') {
-                    errorMsg.textContent = 'Bu e-posta adresi zaten kayıtlı';
+                    errorMsg.textContent = 'Kayıt sırasında bir hata oluştu. Lütfen tekrar deneyin.';
                 } else {
-                    errorMsg.textContent = result.message || 'Registration failed. Please try again.';
+                    errorMsg.textContent = 'An error occurred during registration. Please try again.';
                 }
                 errorMsg.style.display = 'block';
             }
