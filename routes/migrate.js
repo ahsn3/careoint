@@ -48,6 +48,9 @@ router.post('/insert-doctors', async (req, res) => {
 
         const pool = require('../config/database');
         const bcrypt = require('bcryptjs');
+        
+        console.log('Insert doctors endpoint called');
+        console.log('DATABASE_URL exists:', !!process.env.DATABASE_URL);
 
         // Check if doctors table exists
         const tableCheck = await pool.query(`
@@ -239,6 +242,7 @@ router.post('/insert-doctors', async (req, res) => {
 
         let inserted = 0;
         let skipped = 0;
+        const errors = [];
 
         for (const doctor of defaultDoctors) {
             try {
@@ -264,19 +268,25 @@ router.post('/insert-doctors', async (req, res) => {
 
                 if (result.rows.length > 0) {
                     inserted++;
+                    console.log(`✓ Inserted doctor: ${doctor.email}`);
                 } else {
                     skipped++;
+                    console.log(`⚠ Skipped doctor (already exists): ${doctor.email}`);
                 }
             } catch (error) {
-                console.error(`Error inserting doctor ${doctor.email}:`, error);
+                console.error(`✗ Error inserting doctor ${doctor.email}:`, error.message);
+                errors.push({ email: doctor.email, error: error.message });
             }
         }
+        
+        console.log(`Insertion complete: ${inserted} inserted, ${skipped} skipped, ${errors.length} errors`);
 
         res.json({
             success: true,
-            message: `Doctors insertion completed: ${inserted} inserted, ${skipped} skipped`,
+            message: `Doctors insertion completed: ${inserted} inserted, ${skipped} skipped, ${errors.length} errors`,
             inserted: inserted,
             skipped: skipped,
+            errors: errors,
             total: defaultDoctors.length
         });
     } catch (error) {
