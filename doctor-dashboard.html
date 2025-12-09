@@ -355,10 +355,7 @@
     <script src="script.js"></script>
     <script src="sample-data.js"></script>
     <script>
-        // Check if user is logged in as doctor
-        if (!window.auth || !window.auth.isLoggedIn() || window.auth.getCurrentUserRole() !== 'doctor') {
-            window.location.href = 'login.html';
-        }
+        // Check if user is logged in as doctor (will be checked again in DOMContentLoaded)
         
         // Initialize sample data first
         if (typeof initializeSampleData === 'function') {
@@ -411,65 +408,88 @@
         }
         
         // Load and display patients
-        function loadPatients() {
-            const patients = window.auth.getPatients();
-            const tbody = document.getElementById('patientsTableBody');
-            const lang = window.currentLanguage || 'en';
-            
-            // Update stats
-            document.getElementById('totalPatients').textContent = patients.length;
-            
-            let totalAppointments = 0;
-            let todayAppointments = 0;
-            const today = new Date().toISOString().split('T')[0];
-            
-            patients.forEach(patient => {
-                if (patient.appointments) {
-                    totalAppointments += patient.appointments.length;
-                    patient.appointments.forEach(apt => {
-                        if (apt.date === today) {
-                            todayAppointments++;
-                        }
-                    });
-                }
-            });
-            
-            document.getElementById('totalAppointments').textContent = totalAppointments;
-            document.getElementById('todayAppointments').textContent = todayAppointments;
-            
-            // Clear table
-            tbody.innerHTML = '';
-            
-            if (patients.length === 0) {
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="no-data" data-en="No patients registered yet" data-ar="لا يوجد مرضى مسجلون بعد" data-tr="Henüz hasta kaydı yok">No patients registered yet</td>
-                    </tr>
-                `;
-                return;
-            }
-            
-            // Populate table
-            patients.forEach(patient => {
-                const row = document.createElement('tr');
-                const appointmentCount = patient.appointments ? patient.appointments.length : 0;
-                const genderText = patient.gender === 'male' 
-                    ? (lang === 'ar' ? 'ذكر' : lang === 'tr' ? 'Erkek' : 'Male')
-                    : (lang === 'ar' ? 'أنثى' : lang === 'tr' ? 'Kadın' : 'Female');
+        async function loadPatients() {
+            try {
+                const patients = await window.auth.getPatients();
+                const tbody = document.getElementById('patientsTableBody');
+                const lang = window.currentLanguage || 'en';
                 
-                row.innerHTML = `
-                    <td class="patient-name">${patient.name || 'N/A'}</td>
-                    <td>${patient.email}</td>
-                    <td>${patient.phone || 'N/A'}</td>
-                    <td>${genderText}</td>
-                    <td>${appointmentCount}</td>
-                    <td>
-                        <button class="view-btn" onclick="viewPatientDetails(${patient.id})" 
-                                data-en="View" data-ar="عرض" data-tr="Görüntüle">View</button>
-                    </td>
-                `;
-                tbody.appendChild(row);
-            });
+                if (!tbody) {
+                    console.error('Patients table body not found');
+                    return;
+                }
+                
+                // Update stats
+                const totalPatientsEl = document.getElementById('totalPatients');
+                const totalAppointmentsEl = document.getElementById('totalAppointments');
+                const todayAppointmentsEl = document.getElementById('todayAppointments');
+                
+                if (totalPatientsEl) totalPatientsEl.textContent = patients.length || 0;
+            
+                let totalAppointments = 0;
+                let todayAppointments = 0;
+                const today = new Date().toISOString().split('T')[0];
+                
+                patients.forEach(patient => {
+                    if (patient.appointments) {
+                        totalAppointments += patient.appointments.length;
+                        patient.appointments.forEach(apt => {
+                            if (apt.date === today) {
+                                todayAppointments++;
+                            }
+                        });
+                    }
+                });
+                
+                if (totalAppointmentsEl) totalAppointmentsEl.textContent = totalAppointments;
+                if (todayAppointmentsEl) todayAppointmentsEl.textContent = todayAppointments;
+            
+                // Clear table
+                tbody.innerHTML = '';
+                
+                if (patients.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="no-data" data-en="No patients registered yet" data-ar="لا يوجد مرضى مسجلون بعد" data-tr="Henüz hasta kaydı yok">No patients registered yet</td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                // Populate table
+                patients.forEach(patient => {
+                    const row = document.createElement('tr');
+                    const appointmentCount = patient.appointments ? patient.appointments.length : 0;
+                    const genderText = patient.gender === 'male' 
+                        ? (lang === 'ar' ? 'ذكر' : lang === 'tr' ? 'Erkek' : 'Male')
+                        : (lang === 'ar' ? 'أنثى' : lang === 'tr' ? 'Kadın' : 'Female');
+                    
+                    row.innerHTML = `
+                        <td class="patient-name">${patient.name || 'N/A'}</td>
+                        <td>${patient.email}</td>
+                        <td>${patient.phone || 'N/A'}</td>
+                        <td>${genderText}</td>
+                        <td>${appointmentCount}</td>
+                        <td>
+                            <button class="view-btn" onclick="viewPatientDetails(${patient.id})" 
+                                    data-en="View" data-ar="عرض" data-tr="Görüntüle">View</button>
+                        </td>
+                    `;
+                    tbody.appendChild(row);
+                });
+            } catch (error) {
+                console.error('Error loading patients:', error);
+                const tbody = document.getElementById('patientsTableBody');
+                if (tbody) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" class="no-data" style="color: red;">
+                                Error loading patients. Please refresh the page.
+                            </td>
+                        </tr>
+                    `;
+                }
+            }
         }
         
         // View patient details
@@ -719,6 +739,18 @@
         
         // Initialize
         document.addEventListener('DOMContentLoaded', async function() {
+            // Check if user is logged in as doctor
+            if (!window.auth || !window.auth.isLoggedIn()) {
+                window.location.href = 'login.html';
+                return;
+            }
+            
+            const userRole = window.auth.getCurrentUserRole();
+            if (userRole !== 'doctor') {
+                window.location.href = 'index.html';
+                return;
+            }
+            
             updateAuthNavigation();
             await loadPatients();
             await loadAnalytics();
@@ -727,11 +759,11 @@
         // Reload when language changes
         const languageSelect = document.getElementById('languageSelect');
         if (languageSelect) {
-            languageSelect.addEventListener('change', function() {
-                setTimeout(() => {
-                    loadPatients();
+            languageSelect.addEventListener('change', async function() {
+                setTimeout(async () => {
+                    await loadPatients();
                     updateAuthNavigation();
-                    loadAnalytics();
+                    await loadAnalytics();
                 }, 100);
             });
         }
