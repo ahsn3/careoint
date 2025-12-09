@@ -20,17 +20,22 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Run migrations on startup
+// Run migrations on startup (only if DATABASE_URL is set)
 (async () => {
-    try {
-        console.log('Running database migrations...');
-        const migrate = require('./migrations/migrate');
-        await migrate();
-        console.log('Migrations completed');
-    } catch (error) {
-        console.error('Migration error:', error.message);
-        // Don't exit - allow server to start even if migrations fail
-        // This allows the app to work if DATABASE_URL is set later
+    if (process.env.DATABASE_URL) {
+        try {
+            console.log('Running database migrations...');
+            const migrate = require('./migrations/migrate');
+            await migrate();
+            console.log('Migrations completed successfully');
+        } catch (error) {
+            console.error('Migration error:', error.message);
+            console.error('Server will start anyway, but database features may not work');
+            console.error('Please check DATABASE_URL and ensure PostgreSQL is running');
+        }
+    } else {
+        console.warn('WARNING: DATABASE_URL not set. Database features will not work.');
+        console.warn('Please add DATABASE_URL environment variable in Railway settings.');
     }
 })();
 
