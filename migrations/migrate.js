@@ -182,12 +182,29 @@ async function migrate() {
         console.log('✓ Default doctors inserted');
 
         console.log('Migration completed successfully!');
-        process.exit(0);
+        // Don't exit - let the server start
+        await pool.end();
     } catch (error) {
         console.error('Migration failed:', error);
-        process.exit(1);
+        console.error('Error details:', error.message);
+        console.error('Stack:', error.stack);
+        // Exit with error code only if it's a critical error
+        if (error.code === 'ECONNREFUSED' || error.message.includes('DATABASE_URL')) {
+            console.error('Database connection failed. Please check DATABASE_URL environment variable.');
+            process.exit(1);
+        }
+        // For other errors, log but don't exit (allow server to start)
+        await pool.end();
     }
 }
 
-migrate();
+// Only run migration if called directly
+if (require.main === module) {
+    migrate().then(() => {
+        process.exit(0);
+    }).catch((error) => {
+        console.error('Migration error:', error);
+        process.exit(1);
+    });
+}
 

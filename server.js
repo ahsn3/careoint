@@ -6,6 +6,12 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+// Check for required environment variables
+if (!process.env.DATABASE_URL && process.env.NODE_ENV === 'production') {
+    console.error('ERROR: DATABASE_URL is required in production!');
+    console.error('Please set DATABASE_URL in Railway environment variables.');
+}
+
 // Middleware
 app.use(cors());
 app.use(express.json());
@@ -13,6 +19,20 @@ app.use(express.urlencoded({ extended: true }));
 
 // Serve static files
 app.use(express.static(path.join(__dirname)));
+
+// Run migrations on startup
+(async () => {
+    try {
+        console.log('Running database migrations...');
+        const migrate = require('./migrations/migrate');
+        await migrate();
+        console.log('Migrations completed');
+    } catch (error) {
+        console.error('Migration error:', error.message);
+        // Don't exit - allow server to start even if migrations fail
+        // This allows the app to work if DATABASE_URL is set later
+    }
+})();
 
 // API Routes
 app.use('/api/auth', require('./routes/auth'));
