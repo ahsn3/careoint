@@ -1,9 +1,27 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/database');
+
+// Lazy load database
+let pool;
+try {
+    pool = require('../config/database');
+} catch (error) {
+    console.error('Database config error:', error);
+    pool = null;
+}
+
+const checkDatabase = (req, res, next) => {
+    if (!pool || !process.env.DATABASE_URL) {
+        return res.status(503).json({ 
+            success: false, 
+            message: 'Database not configured' 
+        });
+    }
+    next();
+};
 
 // Get all patients (doctor only)
-router.get('/', async (req, res) => {
+router.get('/', checkDatabase, async (req, res) => {
     try {
         const userRole = req.headers['x-user-role'];
         
@@ -75,7 +93,7 @@ router.get('/', async (req, res) => {
 });
 
 // Get single patient
-router.get('/:id', async (req, res) => {
+router.get('/:id', checkDatabase, async (req, res) => {
     try {
         const userRole = req.headers['x-user-role'];
         const userId = req.headers['x-user-id'];

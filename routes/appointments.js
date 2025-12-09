@@ -1,10 +1,28 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('../config/database');
 const { body, validationResult } = require('express-validator');
 
+// Lazy load database
+let pool;
+try {
+    pool = require('../config/database');
+} catch (error) {
+    console.error('Database config error:', error);
+    pool = null;
+}
+
+const checkDatabase = (req, res, next) => {
+    if (!pool || !process.env.DATABASE_URL) {
+        return res.status(503).json({ 
+            success: false, 
+            message: 'Database not configured' 
+        });
+    }
+    next();
+};
+
 // Create appointment
-router.post('/', [
+router.post('/', checkDatabase, [
     body('patientId').isInt(),
     body('doctorId').isInt(),
     body('date').isISO8601(),
@@ -58,7 +76,7 @@ router.post('/', [
 });
 
 // Get appointments for a patient
-router.get('/patient/:patientId', async (req, res) => {
+router.get('/patient/:patientId', checkDatabase, async (req, res) => {
     try {
         const patientId = parseInt(req.params.patientId);
         const userId = req.headers['x-user-id'];
