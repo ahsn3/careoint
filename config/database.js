@@ -5,16 +5,36 @@ require('dotenv').config();
 let pool;
 
 if (process.env.DATABASE_URL) {
-    pool = new Pool({
-        connectionString: process.env.DATABASE_URL,
-        ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false
-    });
+    try {
+        pool = new Pool({
+            connectionString: process.env.DATABASE_URL,
+            ssl: process.env.NODE_ENV === 'production' ? { rejectUnauthorized: false } : false,
+            // Connection pool settings
+            max: 20,
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 2000,
+        });
+        
+        // Test connection
+        pool.on('connect', () => {
+            console.log('✓ Connected to PostgreSQL database');
+        });
+        
+        pool.on('error', (err) => {
+            console.error('Database pool error:', err);
+            // Don't exit - let the app continue
+        });
+    } catch (error) {
+        console.error('Failed to create database pool:', error);
+        pool = null;
+    }
 } else {
     // Create a dummy pool that will fail gracefully
-    console.warn('DATABASE_URL not set - creating dummy pool');
+    console.warn('⚠ DATABASE_URL not set - database features disabled');
     pool = {
         query: () => Promise.reject(new Error('DATABASE_URL not configured')),
-        end: () => Promise.resolve()
+        end: () => Promise.resolve(),
+        on: () => {} // Dummy event handler
     };
 }
 
