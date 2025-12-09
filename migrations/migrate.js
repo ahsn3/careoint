@@ -84,11 +84,12 @@ async function migrate() {
         `);
         console.log('✓ Sessions table created');
 
-        // Insert default doctors
+        // Insert default doctors (all 12 doctors from doctors.js)
         const defaultDoctors = [
+            // Cardiology
             {
                 email: 'ahmed.rashid@carepoint.com',
-                password: 'doctor123', // Will be hashed
+                password: 'doctor123',
                 name_en: 'Dr. Ahmed Al-Rashid',
                 name_ar: 'د. أحمد الراشد',
                 name_tr: 'Dr. Ahmed Al-Rashid',
@@ -96,22 +97,23 @@ async function migrate() {
                 department_ar: 'أمراض القلب',
                 department_tr: 'Kardiyoloji',
                 specialty_en: 'Interventional Cardiology',
-                specialty_ar: 'القلب التدخلي',
+                specialty_ar: 'أمراض القلب التداخلية',
                 specialty_tr: 'Girişimsel Kardiyoloji'
             },
             {
                 email: 'fatima.zahra@carepoint.com',
-                password: 'doctor123', // Will be hashed
+                password: 'doctor123',
                 name_en: 'Dr. Fatima Al-Zahra',
                 name_ar: 'د. فاطمة الزهراء',
                 name_tr: 'Dr. Fatima Al-Zahra',
                 department_en: 'Cardiology',
                 department_ar: 'أمراض القلب',
                 department_tr: 'Kardiyoloji',
-                specialty_en: 'Heart Surgery',
-                specialty_ar: 'جراحة القلب',
-                specialty_tr: 'Kalp Cerrahisi'
+                specialty_en: 'Pediatric Cardiology',
+                specialty_ar: 'أمراض قلب الأطفال',
+                specialty_tr: 'Pediatrik Kardiyoloji'
             },
+            // Neurology
             {
                 email: 'mohammed.sayed@carepoint.com',
                 password: 'doctor123',
@@ -134,10 +136,11 @@ async function migrate() {
                 department_en: 'Neurology',
                 department_ar: 'الأعصاب',
                 department_tr: 'Nöroloji',
-                specialty_en: 'Epilepsy Treatment',
-                specialty_ar: 'علاج الصرع',
-                specialty_tr: 'Epilepsi Tedavisi'
+                specialty_en: 'Epilepsy Specialist',
+                specialty_ar: 'أخصائية الصرع',
+                specialty_tr: 'Epilepsi Uzmanı'
             },
+            // Orthopedics
             {
                 email: 'khalid.mahmoud@carepoint.com',
                 password: 'doctor123',
@@ -163,6 +166,87 @@ async function migrate() {
                 specialty_en: 'Sports Medicine',
                 specialty_ar: 'الطب الرياضي',
                 specialty_tr: 'Spor Hekimliği'
+            },
+            // Pediatrics
+            {
+                email: 'omar.hassan@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Omar Al-Hassan',
+                name_ar: 'د. عمر الحسن',
+                name_tr: 'Dr. Omar Al-Hassan',
+                department_en: 'Pediatrics',
+                department_ar: 'طب الأطفال',
+                department_tr: 'Pediatri',
+                specialty_en: 'General Pediatrics',
+                specialty_ar: 'طب الأطفال العام',
+                specialty_tr: 'Genel Pediatri'
+            },
+            {
+                email: 'nour.aldin@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Nour Al-Din',
+                name_ar: 'د. نور الدين',
+                name_tr: 'Dr. Nour Al-Din',
+                department_en: 'Pediatrics',
+                department_ar: 'طب الأطفال',
+                department_tr: 'Pediatri',
+                specialty_en: 'Neonatology',
+                specialty_ar: 'طب حديثي الولادة',
+                specialty_tr: 'Yenidoğan Bilimi'
+            },
+            // Dermatology
+            {
+                email: 'youssef.khatib@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Youssef Al-Khatib',
+                name_ar: 'د. يوسف الخطيب',
+                name_tr: 'Dr. Youssef Al-Khatib',
+                department_en: 'Dermatology',
+                department_ar: 'الأمراض الجلدية',
+                department_tr: 'Dermatoloji',
+                specialty_en: 'Cosmetic Dermatology',
+                specialty_ar: 'التجميل الجلدي',
+                specialty_tr: 'Kozmetik Dermatoloji'
+            },
+            {
+                email: 'mariam.farouq@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Mariam Al-Farouq',
+                name_ar: 'د. مريم الفاروق',
+                name_tr: 'Dr. Mariam Al-Farouq',
+                department_en: 'Dermatology',
+                department_ar: 'الأمراض الجلدية',
+                department_tr: 'Dermatoloji',
+                specialty_en: 'Dermatopathology',
+                specialty_ar: 'أمراض الجلد المرضية',
+                specialty_tr: 'Dermatopatoloji'
+            },
+            // Gynecology
+            {
+                email: 'hassan.mutairi@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Hassan Al-Mutairi',
+                name_ar: 'د. حسن المطيري',
+                name_tr: 'Dr. Hassan Al-Mutairi',
+                department_en: 'Gynecology',
+                department_ar: 'أمراض النساء',
+                department_tr: 'Jinekoloji',
+                specialty_en: 'Gynecologic Oncology',
+                specialty_ar: 'أورام النساء',
+                specialty_tr: 'Jinekolojik Onkoloji'
+            },
+            {
+                email: 'zainab.qasimi@carepoint.com',
+                password: 'doctor123',
+                name_en: 'Dr. Zainab Al-Qasimi',
+                name_ar: 'د. زينب القاسمي',
+                name_tr: 'Dr. Zainab Al-Qasimi',
+                department_en: 'Gynecology',
+                department_ar: 'أمراض النساء',
+                department_tr: 'Jinekoloji',
+                specialty_en: 'Reproductive Medicine',
+                specialty_ar: 'الطب الإنجابي',
+                specialty_tr: 'Üreme Tıbbı'
             }
         ];
 
