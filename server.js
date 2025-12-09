@@ -12,10 +12,25 @@ if (!process.env.DATABASE_URL && process.env.NODE_ENV === 'production') {
     console.error('Please set DATABASE_URL in Railway environment variables.');
 }
 
+// Health check endpoint (before everything else)
+app.get('/health', (req, res) => {
+    res.status(200).json({ 
+        status: 'ok', 
+        timestamp: new Date().toISOString(),
+        uptime: process.uptime()
+    });
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// Request logging middleware
+app.use((req, res, next) => {
+    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
+    next();
+});
 
 // Serve static files
 app.use(express.static(path.join(__dirname)));
@@ -100,11 +115,19 @@ process.on('unhandledRejection', (reason, promise) => {
 });
 
 // Start server
+console.log('Starting server...');
+console.log(`Port: ${PORT}`);
+console.log(`Node version: ${process.version}`);
+console.log(`Working directory: ${__dirname}`);
+console.log(`Files in directory:`, require('fs').readdirSync(__dirname).slice(0, 10).join(', '));
+
 const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`✓ Server running on port ${PORT}`);
     console.log(`✓ Environment: ${process.env.NODE_ENV || 'development'}`);
     console.log(`✓ Server is ready to accept connections`);
     console.log(`✓ Static files serving from: ${__dirname}`);
+    console.log(`✓ Health check available at: /health`);
+    console.log(`✓ Server started successfully at ${new Date().toISOString()}`);
 });
 
 // Handle server errors
