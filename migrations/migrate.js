@@ -2,6 +2,13 @@ const pool = require('../config/database');
 require('dotenv').config();
 
 async function migrate() {
+    // Check if DATABASE_URL is set FIRST
+    if (!process.env.DATABASE_URL) {
+        console.log('⚠ DATABASE_URL not set - skipping migrations');
+        console.log('Migrations will run automatically when DATABASE_URL is configured');
+        return false; // Return false instead of throwing
+    }
+    
     try {
         console.log('Starting database migration...');
 
