@@ -1,0 +1,150 @@
+{
+  "doctors": [
+    {
+      "id": 1,
+      "email": "ahmed.rashid@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Ahmed Al-Rashid",
+        "ar": "د. أحمد الراشد"
+      },
+      "role": "doctor",
+      "doctorId": 1,
+      "department": "cardiology"
+    },
+    {
+      "id": 2,
+      "email": "fatima.zahra@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Fatima Al-Zahra",
+        "ar": "د. فاطمة الزهراء"
+      },
+      "role": "doctor",
+      "doctorId": 2,
+      "department": "cardiology"
+    },
+    {
+      "id": 3,
+      "email": "mohammed.sayed@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Mohammed Al-Sayed",
+        "ar": "د. محمد السيد"
+      },
+      "role": "doctor",
+      "doctorId": 3,
+      "department": "neurology"
+    },
+    {
+      "id": 4,
+      "email": "aisha.mansouri@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Aisha Al-Mansouri",
+        "ar": "د. عائشة المنصوري"
+      },
+      "role": "doctor",
+      "doctorId": 4,
+      "department": "neurology"
+    },
+    {
+      "id": 5,
+      "email": "khalid.mahmoud@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Khalid Al-Mahmoud",
+        "ar": "د. خالد المحمود"
+      },
+      "role": "doctor",
+      "doctorId": 5,
+      "department": "orthopedics"
+    },
+    {
+      "id": 6,
+      "email": "layla.ahmad@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Layla Al-Ahmad",
+        "ar": "د. ليلى الأحمد"
+      },
+      "role": "doctor",
+      "doctorId": 6,
+      "department": "orthopedics"
+    },
+    {
+      "id": 7,
+      "email": "omar.hassan@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Omar Al-Hassan",
+        "ar": "د. عمر الحسن"
+      },
+      "role": "doctor",
+      "doctorId": 7,
+      "department": "pediatrics"
+    },
+    {
+      "id": 8,
+      "email": "nour.din@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Nour Al-Din",
+        "ar": "د. نور الدين"
+      },
+      "role": "doctor",
+      "doctorId": 8,
+      "department": "pediatrics"
+    },
+    {
+      "id": 9,
+      "email": "youssef.khatib@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Youssef Al-Khatib",
+        "ar": "د. يوسف الخطيب"
+      },
+      "role": "doctor",
+      "doctorId": 9,
+      "department": "dermatology"
+    },
+    {
+      "id": 10,
+      "email": "mariam.farouq@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Mariam Al-Farouq",
+        "ar": "د. مريم الفاروق"
+      },
+      "role": "doctor",
+      "doctorId": 10,
+      "department": "dermatology"
+    },
+    {
+      "id": 11,
+      "email": "hassan.mutairi@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Hassan Al-Mutairi",
+        "ar": "د. حسن المطيري"
+      },
+      "role": "doctor",
+      "doctorId": 11,
+      "department": "gynecology"
+    },
+    {
+      "id": 12,
+      "email": "zainab.qasimi@carepoint.com",
+      "password": "doctor123",
+      "name": {
+        "en": "Dr. Zainab Al-Qasimi",
+        "ar": "د. زينب القاسمي"
+      },
+      "role": "doctor",
+      "doctorId": 12,
+      "department": "gynecology"
+    }
+  ],
+  "note": "All doctor accounts use the password 'doctor123'. In production, passwords should be hashed and stored securely."
+}
+

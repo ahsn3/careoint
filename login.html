@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Care Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .login-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 450px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .login-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .login-header h1 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .login-header p {
+            color: #666;
+        }
+        
+        .login-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .login-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .login-form input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .login-form input:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .login-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .register-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .register-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .register-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .user-type-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e5e7eb;
+        }
+        
+        .user-type-tab {
+            flex: 1;
+            padding: 12px;
+            text-align: center;
+            background: transparent;
+            border: none;
+            border-bottom: 3px solid transparent;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #666;
+            transition: all 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .user-type-tab.active {
+            color: #1e40af;
+            border-bottom-color: #1e40af;
+            background: #eff6ff;
+        }
+        
+        .user-type-tab:hover {
+            color: #1e40af;
+            background: #f0f9ff;
+        }
+        
+        .login-form-section {
+            display: none;
+        }
+        
+        .login-form-section.active {
+            display: block;
+        }
+        
+        .doctor-info {
+            background: #eff6ff;
+            border: 1px solid #3b82f6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .doctor-info h3 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .doctor-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+        
+        .patient-info {
+            background: #f0fdf4;
+            border: 1px solid #22c55e;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .patient-info h3 {
+            color: #15803d;
+            margin-bottom: 10px;
+            font-size: 1rem;
+        }
+        
+        .patient-info p {
+            color: #666;
+            font-size: 0.9rem;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span class="logo-text">Care Point</span>
+                </a>
+                <p class="slogan" data-en="Your Health, Our Priority" data-ar="صحتك، أولويتنا" data-tr="Sağlığınız, Önceliğimiz">Your Health, Our Priority</p>
+            </div>
+            
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية" data-tr="Ana Sayfa">Home</a></li>
+                <li><a href="register.html" class="nav-link" data-en="Register" data-ar="تسجيل" data-tr="Kayıt Ol">Register</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <div class="language-select-wrapper">
+                    <select class="language-select" id="languageSelect">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Login Form -->
+    <div class="login-container">
+        <div class="login-card">
+            <div class="login-header">
+                <h1 data-en="Login" data-ar="تسجيل الدخول" data-tr="Giriş Yap">Login</h1>
+                <p data-en="Sign in to your account" data-ar="سجل الدخول إلى حسابك" data-tr="Hesabınıza giriş yapın">Sign in to your account</p>
+            </div>
+            
+            <div class="user-type-tabs">
+                <button class="user-type-tab active" data-type="patient" id="patientTab">
+                    <i class="fas fa-user"></i> <span data-en="Patient" data-ar="مريض" data-tr="Hasta">Patient</span>
+                </button>
+                <button class="user-type-tab" data-type="doctor" id="doctorTab">
+                    <i class="fas fa-user-md"></i> <span data-en="Doctor" data-ar="طبيب" data-tr="Doktor">Doctor</span>
+                </button>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            
+            <!-- Patient Login Form -->
+            <div class="login-form-section active" id="patientLoginSection">
+                <div class="patient-info">
+                    <h3 data-en="Patient Login" data-ar="تسجيل دخول المريض" data-tr="Hasta Girişi">Patient Login</h3>
+                    <p data-en="Use your registered email and password to login" data-ar="استخدم بريدك الإلكتروني المسجل وكلمة المرور لتسجيل الدخول" data-tr="Giriş yapmak için kayıtlı e-posta adresinizi ve şifrenizi kullanın">Use your registered email and password to login</p>
+                </div>
+                
+                <form class="login-form" id="patientLoginForm">
+                    <div class="form-group">
+                        <label for="patientEmail" data-en="Email Address" data-ar="البريد الإلكتروني" data-tr="E-posta Adresi">Email Address</label>
+                        <input type="email" id="patientEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="patientPassword" data-en="Password" data-ar="كلمة المرور" data-tr="Şifre">Password</label>
+                        <input type="password" id="patientPassword" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="login-button" data-en="Login as Patient" data-ar="تسجيل الدخول كمريض" data-tr="Hasta Olarak Giriş Yap">Login as Patient</button>
+                </form>
+            </div>
+            
+            <!-- Doctor Login Form -->
+            <div class="login-form-section" id="doctorLoginSection">
+                <div class="doctor-info">
+                    <h3 data-en="Doctor Test Accounts" data-ar="حسابات الأطباء التجريبية" data-tr="Doktor Test Hesapları">Doctor Test Accounts</h3>
+                    <p data-en="Email: ahmed.rashid@carepoint.com | Password: doctor123" data-ar="البريد: ahmed.rashid@carepoint.com | كلمة المرور: doctor123" data-tr="E-posta: ahmed.rashid@carepoint.com | Şifre: doctor123">Email: ahmed.rashid@carepoint.com | Password: doctor123</p>
+                    <p style="margin-top: 10px; font-size: 0.85rem;" data-en="All doctor accounts use the same password: doctor123" data-ar="جميع حسابات الأطباء تستخدم نفس كلمة المرور: doctor123" data-tr="Tüm doktor hesapları aynı şifreyi kullanır: doctor123">All doctor accounts use the same password: doctor123</p>
+                </div>
+                
+                <form class="login-form" id="doctorLoginForm">
+                    <div class="form-group">
+                        <label for="doctorEmail" data-en="Email Address" data-ar="البريد الإلكتروني" data-tr="E-posta Adresi">Email Address</label>
+                        <input type="email" id="doctorEmail" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="doctorPassword" data-en="Password" data-ar="كلمة المرور" data-tr="Şifre">Password</label>
+                        <input type="password" id="doctorPassword" name="password" required>
+                    </div>
+                    
+                    <button type="submit" class="login-button" data-en="Login as Doctor" data-ar="تسجيل الدخول كطبيب" data-tr="Doktor Olarak Giriş Yap">Login as Doctor</button>
+                </form>
+            </div>
+            
+            <div class="register-link">
+                <p data-en="Don't have an account?" data-ar="ليس لديك حساب؟" data-tr="Hesabınız yok mu?">Don't have an account? 
+                    <a href="register.html" data-en="Register here" data-ar="سجل هنا" data-tr="Buradan kayıt olun">Register here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="api-client.js"></script>
+    <script src="auth-api.js"></script>
+    <script>
+        // Initialize language
+        if (typeof initLanguage === 'function') {
+            initLanguage();
+        }
+        
+        // Ensure storage is initialized
+        if (window.auth && typeof window.auth.initializeStorage === 'function') {
+            window.auth.initializeStorage();
+        }
+        
+        // Tab switching functionality
+        const patientTab = document.getElementById('patientTab');
+        const doctorTab = document.getElementById('doctorTab');
+        const patientSection = document.getElementById('patientLoginSection');
+        const doctorSection = document.getElementById('doctorLoginSection');
+        
+        patientTab.addEventListener('click', function() {
+            patientTab.classList.add('active');
+            doctorTab.classList.remove('active');
+            patientSection.classList.add('active');
+            doctorSection.classList.remove('active');
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+        
+        doctorTab.addEventListener('click', function() {
+            doctorTab.classList.add('active');
+            patientTab.classList.remove('active');
+            doctorSection.classList.add('active');
+            patientSection.classList.remove('active');
+            document.getElementById('errorMessage').style.display = 'none';
+        });
+        
+        // Patient login form submission
+        document.getElementById('patientLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.style.display = 'none';
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            const result = window.auth.login(email, password);
+            
+            if (result.success && result.role === 'patient') {
+                window.location.href = 'index.html';
+            } else {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    errorMsg.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة. تأكد من تسجيل الدخول كـ مريض.';
+                } else if (lang === 'tr') {
+                    errorMsg.textContent = 'E-posta veya şifre hatalı. Hasta olarak giriş yaptığınızdan emin olun.';
+                } else {
+                    errorMsg.textContent = result.message || 'Invalid email or password. Make sure you are logging in as a patient.';
+                }
+                errorMsg.style.display = 'block';
+            }
+        });
+        
+        // Doctor login form submission
+        document.getElementById('doctorLoginForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorMsg = document.getElementById('errorMessage');
+            errorMsg.style.display = 'none';
+            
+            const formData = new FormData(this);
+            const email = formData.get('email');
+            const password = formData.get('password');
+            
+            const result = await window.auth.login(email, password, 'doctor');
+            
+            if (result.success && result.role === 'doctor') {
+                window.location.href = 'doctor-dashboard.html';
+            } else {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    errorMsg.textContent = 'البريد الإلكتروني أو كلمة المرور غير صحيحة. تأكد من تسجيل الدخول كـ طبيب.';
+                } else if (lang === 'tr') {
+                    errorMsg.textContent = 'E-posta veya şifre hatalı. Doktor olarak giriş yaptığınızdan emin olun.';
+                } else {
+                    errorMsg.textContent = result.message || 'Invalid email or password. Make sure you are logging in as a doctor.';
+                }
+                errorMsg.style.display = 'block';
+            }
+        });
+    </script>
+</body>
+</html>
+

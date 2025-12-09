@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cardiology - Care Point</title>
+    
+    <!-- Meta tags for social media sharing -->
+    <meta name="description" content="Care Point Cardiology Department - Expert heart care and cardiovascular treatment. Book appointments with our specialized cardiologists.">
+    <meta name="keywords" content="cardiology, heart care, cardiovascular, heart surgery, cardiologists, heart treatment">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carepoint-medical.com/cardiology.html">
+    <meta property="og:title" content="Cardiology Department - Care Point Medical Center">
+    <meta property="og:description" content="Expert heart care and cardiovascular treatment. Book appointments with our specialized cardiologists.">
+    <meta property="og:image" content="./logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Care Point Medical Center Logo">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://carepoint-medical.com/cardiology.html">
+    <meta property="twitter:title" content="Cardiology Department - Care Point Medical Center">
+    <meta property="twitter:description" content="Expert heart care and cardiovascular treatment. Book appointments with our specialized cardiologists.">
+    <meta property="twitter:image" content="./logo.png">
+    <meta property="twitter:image:alt" content="Care Point Medical Center Logo">
+    
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header - Main Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span class="logo-text">Care Point</span>
+                </a>
+                <p class="slogan" data-en="Your Health, Our Priority" data-ar="صحتك، أولويتنا">Your Health, Our Priority</p>
+            </div>
+            
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-en="Departments" data-ar="الأقسام">
+                        <span data-en="Departments" data-ar="الأقسام">Departments</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cardiology.html" class="dropdown-link active" data-en="Cardiology" data-ar="أمراض القلب">Cardiology</a></li>
+                        <li><a href="neurology.html" class="dropdown-link" data-en="Neurology" data-ar="الأعصاب">Neurology</a></li>
+                        <li><a href="orthopedics.html" class="dropdown-link" data-en="Orthopedics" data-ar="العظام">Orthopedics</a></li>
+                        <li><a href="pediatrics.html" class="dropdown-link" data-en="Pediatrics" data-ar="طب الأطفال">Pediatrics</a></li>
+                        <li><a href="dermatology.html" class="dropdown-link" data-en="Dermatology" data-ar="الأمراض الجلدية">Dermatology</a></li>
+                        <li><a href="gynecology.html" class="dropdown-link" data-en="Gynecology" data-ar="أمراض النساء">Gynecology</a></li>
+                    </ul>
+                </li>
+                <li><a href="index.html#appointments" class="nav-link" data-en="Book Appointment" data-ar="احجز موعد">Book Appointment</a></li>
+                <li><a href="index.html#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا">Contact</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <div class="language-select-wrapper">
+                    <select class="language-select" id="languageSelect">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Department Hero -->
+    <section class="department-hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="department-title" data-en="Cardiology Department" data-ar="قسم أمراض القلب">Cardiology Department</h1>
+                <p class="department-description" data-en="Expert heart care and cardiovascular treatment" data-ar="رعاية قلبية متخصصة وعلاج أمراض القلب والأوعية الدموية">Expert heart care and cardiovascular treatment</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Department Doctors -->
+    <section class="department-doctors">
+        <div class="container">
+            <h2 class="section-title" data-en="Our Cardiologists" data-ar="أطباء القلب لدينا">Our Cardiologists</h2>
+            <div class="doctors-grid" id="departmentDoctors">
+                <!-- Doctors will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- All Doctors Section -->
+    <section class="all-doctors">
+        <div class="container">
+            <h2 class="section-title" data-en="All Our Doctors" data-ar="جميع أطبائنا">All Our Doctors</h2>
+            <div class="doctors-grid" id="allDoctorsGrid">
+                <!-- All doctors will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Book Appointment CTA -->
+    <section class="book-appointment-cta">
+        <div class="container">
+            <h2 data-en="Ready to Book Your Appointment?" data-ar="مستعد لحجز موعدك؟">Ready to Book Your Appointment?</h2>
+            <p data-en="Schedule your consultation with our cardiology specialists" data-ar="احجز استشارتك مع أخصائيي القلب لدينا">Schedule your consultation with our cardiology specialists</p>
+            <a href="index.html#appointment" class="btn btn-primary" data-en="Book Now" data-ar="احجز الآن">Book Now</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Care Point</span>
+                    </div>
+                    <p data-en="Your trusted healthcare partner" data-ar="شريكك الموثوق في الرعاية الصحية">Your trusted healthcare partner</p>
+                    <p data-en="Providing exceptional medical care with compassion and expertise" data-ar="نقدم رعاية طبية استثنائية مع الرحمة والخبرة">Providing exceptional medical care with compassion and expertise</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Quick Links" data-ar="روابط سريعة">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-ar="الرئيسية">Home</a></li>
+                        <li><a href="cardiology.html" data-en="Cardiology" data-ar="أمراض القلب">Cardiology</a></li>
+                        <li><a href="neurology.html" data-en="Neurology" data-ar="الأعصاب">Neurology</a></li>
+                        <li><a href="orthopedics.html" data-en="Orthopedics" data-ar="العظام">Orthopedics</a></li>
+                        <li><a href="pediatrics.html" data-en="Pediatrics" data-ar="طب الأطفال">Pediatrics</a></li>
+                        <li><a href="dermatology.html" data-en="Dermatology" data-ar="الأمراض الجلدية">Dermatology</a></li>
+                        <li><a href="gynecology.html" data-en="Gynecology" data-ar="أمراض النساء">Gynecology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Contact Info" data-ar="معلومات الاتصال">Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +20 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@carepoint-medical.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</p>
+                    <p><i class="fas fa-clock"></i> <span data-en="24/7 Emergency Service" data-ar="خدمة طوارئ 24/7">24/7 Emergency Service</span></p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Follow Us" data-ar="تابعنا">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="© 2024 Care Point. All rights reserved." data-ar="© 2024 نقطة العناية. جميع الحقوق محفوظة.">© 2024 Care Point. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        // Simple, direct approach - show doctors immediately
+        function showDoctors() {
+            console.log('Showing doctors...');
+            
+            // Get current language
+            const currentLang = window.currentLanguage || 'en';
+            
+            // Department doctors
+            const deptGrid = document.getElementById('departmentDoctors');
+            if (deptGrid) {
+                deptGrid.innerHTML = `
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Ahmed Al-Rashid <span>${currentLang === 'ar' ? '(أمراض القلب)' : '(Cardiology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'أمراض القلب' : 'Cardiology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'القلب التدخلي' : 'Interventional Cardiology'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Fatima Al-Zahra <span>${currentLang === 'ar' ? '(أمراض القلب)' : '(Cardiology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'أمراض القلب' : 'Cardiology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'جراحة القلب' : 'Heart Surgery'}</p>
+                        </div>
+                    </div>
+                `;
+            }
+            
+            // All doctors
+            const allGrid = document.getElementById('allDoctorsGrid');
+            if (allGrid) {
+                allGrid.innerHTML = `
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Ahmed Al-Rashid <span>${currentLang === 'ar' ? '(أمراض القلب)' : '(Cardiology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'أمراض القلب' : 'Cardiology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'القلب التدخلي' : 'Interventional Cardiology'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Fatima Al-Zahra <span>${currentLang === 'ar' ? '(أمراض القلب)' : '(Cardiology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'أمراض القلب' : 'Cardiology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'جراحة القلب' : 'Heart Surgery'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Khalid Al-Mahmoud <span>${currentLang === 'ar' ? '(العظام)' : '(Orthopedics)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'العظام' : 'Orthopedics'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'جراحة استبدال المفاصل' : 'Joint Replacement Surgery'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Layla Al-Ahmad <span>${currentLang === 'ar' ? '(العظام)' : '(Orthopedics)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'العظام' : 'Orthopedics'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'الطب الرياضي' : 'Sports Medicine'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Omar Al-Hassan <span>${currentLang === 'ar' ? '(الأعصاب)' : '(Neurology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'الأعصاب' : 'Neurology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'جراحة الأعصاب' : 'Neurological Surgery'}</p>
+                        </div>
+                    </div>
+                    <div class="doctor-card">
+                        <div class="doctor-image">
+                            <i class="fas fa-user-nurse"></i>
+                        </div>
+                        <div class="doctor-info">
+                            <h3 class="doctor-name">Dr. Aisha Al-Mansour <span>${currentLang === 'ar' ? '(الأعصاب)' : '(Neurology)'}</span></h3>
+                            <p class="doctor-department">${currentLang === 'ar' ? 'الأعصاب' : 'Neurology'}</p>
+                            <p class="doctor-specialty">${currentLang === 'ar' ? 'علاج الصرع' : 'Epilepsy Treatment'}</p>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        // Run immediately
+        showDoctors();
+        
+        // Also run when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, showing doctors...');
+            // Initialize language first
+            if (typeof initLanguage === 'function') {
+                initLanguage();
+            }
+            showDoctors();
+            
+            // Re-translate doctor cards when language changes
+            const languageToggle = document.getElementById('languageToggle');
+            if (languageToggle) {
+                languageToggle.addEventListener('click', function() {
+                    setTimeout(() => {
+                        showDoctors();
+                    }, 100);
+                });
+            }
+        });
+    </script>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-comments"></i>
+            <span class="chatbot-badge" id="chatbotBadge">1</span>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-content">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <h3 data-en="Care Point Assistant" data-ar="مساعد كير بوينت">Care Point Assistant</h3>
+                        <p data-en="How can I help you today?" data-ar="كيف يمكنني مساعدتك اليوم؟">How can I help you today?</p>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot-message">
+                    <div class="message-content">
+                        <p data-en="Hello! I'm here to help you find the right department. Please describe your symptoms or how you're feeling, and I'll guide you to the appropriate specialist." data-ar="مرحباً! أنا هنا لمساعدتك في العثور على القسم المناسب. يرجى وصف أعراضك أو ما تشعر به، وسأوجهك إلى الأخصائي المناسب.">Hello! I'm here to help you find the right department. Please describe your symptoms or how you're feeling, and I'll guide you to the appropriate specialist.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbotInput" class="chatbot-input" 
+                       data-placeholder-en="Type your symptoms or question..." 
+                       data-placeholder-ar="اكتب أعراضك أو سؤالك..."
+                       placeholder="Type your symptoms or question...">
+                <button class="chatbot-send" id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="chatbot.js"></script>
+</body>
+</html>

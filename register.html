@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Registration - Care Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        .register-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 100px 20px 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .register-card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+        
+        .register-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .register-header h1 {
+            color: #1e40af;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+        
+        .register-header p {
+            color: #666;
+        }
+        
+        .register-form .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .register-form label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+        
+        .register-form input,
+        .register-form select,
+        .register-form textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+            font-family: 'Cairo', sans-serif;
+        }
+        
+        .register-form input:focus,
+        .register-form select:focus,
+        .register-form textarea:focus {
+            outline: none;
+            border-color: #3b82f6;
+        }
+        
+        .register-form textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .register-form .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .register-button {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            margin-top: 10px;
+        }
+        
+        .register-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(59, 130, 246, 0.3);
+        }
+        
+        .register-button:active {
+            transform: translateY(0);
+        }
+        
+        .login-link {
+            text-align: center;
+            margin-top: 20px;
+            color: #666;
+        }
+        
+        .login-link a {
+            color: #3b82f6;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+        
+        .error-message {
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        .success-message {
+            background: #d1fae5;
+            color: #059669;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+        }
+        
+        @media (max-width: 768px) {
+            .register-form .form-row {
+                grid-template-columns: 1fr;
+            }
+            
+            .register-card {
+                padding: 30px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span class="logo-text">Care Point</span>
+                </a>
+                <p class="slogan" data-en="Your Health, Our Priority" data-ar="صحتك، أولويتنا" data-tr="Sağlığınız, Önceliğimiz">Your Health, Our Priority</p>
+            </div>
+            
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link" data-en="Home" data-ar="الرئيسية" data-tr="Ana Sayfa">Home</a></li>
+                <li><a href="login.html" class="nav-link" data-en="Login" data-ar="تسجيل الدخول" data-tr="Giriş Yap">Login</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <div class="language-select-wrapper">
+                    <select class="language-select" id="languageSelect">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Registration Form -->
+    <div class="register-container">
+        <div class="register-card">
+            <div class="register-header">
+                <h1 data-en="Patient Registration" data-ar="تسجيل المريض" data-tr="Hasta Kaydı">Patient Registration</h1>
+                <p data-en="Create your account to book appointments and access your medical records" data-ar="أنشئ حسابك لحجز المواعيد والوصول إلى سجلاتك الطبية" data-tr="Randevu almak ve tıbbi kayıtlarınıza erişmek için hesabınızı oluşturun">Create your account to book appointments and access your medical records</p>
+            </div>
+            
+            <div class="error-message" id="errorMessage"></div>
+            <div class="success-message" id="successMessage"></div>
+            
+            <form class="register-form" id="registerForm">
+                <div class="form-group">
+                    <label for="name" data-en="Full Name" data-ar="الاسم الكامل" data-tr="Ad Soyad">Full Name *</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="email" data-en="Email Address" data-ar="البريد الإلكتروني" data-tr="E-posta Adresi">Email Address *</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="phone" data-en="Phone Number" data-ar="رقم الهاتف" data-tr="Telefon Numarası">Phone Number *</label>
+                        <input type="tel" id="phone" name="phone" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="password" data-en="Password" data-ar="كلمة المرور" data-tr="Şifre">Password *</label>
+                        <input type="password" id="password" name="password" required minlength="6">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="confirmPassword" data-en="Confirm Password" data-ar="تأكيد كلمة المرور" data-tr="Şifreyi Onayla">Confirm Password *</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="dateOfBirth" data-en="Date of Birth" data-ar="تاريخ الميلاد" data-tr="Doğum Tarihi">Date of Birth *</label>
+                        <input type="date" id="dateOfBirth" name="dateOfBirth" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="gender" data-en="Gender" data-ar="الجنس" data-tr="Cinsiyet">Gender *</label>
+                        <select id="gender" name="gender" required>
+                            <option value="" data-en="Select Gender" data-ar="اختر الجنس" data-tr="Cinsiyet Seçin">Select Gender</option>
+                            <option value="male" data-en="Male" data-ar="ذكر" data-tr="Erkek">Male</option>
+                            <option value="female" data-en="Female" data-ar="أنثى" data-tr="Kadın">Female</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="address" data-en="Address" data-ar="العنوان" data-tr="Adres">Address</label>
+                    <textarea id="address" name="address" rows="2"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="medicalHistory" data-en="Medical History (Optional)" data-ar="التاريخ الطبي (اختياري)" data-tr="Tıbbi Geçmiş (İsteğe Bağlı)">Medical History (Optional)</label>
+                    <textarea id="medicalHistory" name="medicalHistory" rows="3" 
+                              data-placeholder-en="Any previous medical conditions, allergies, or medications..."
+                              data-placeholder-ar="أي حالات طبية سابقة، حساسيات، أو أدوية..."
+                              data-placeholder-tr="Önceki tıbbi durumlar, alerjiler veya ilaçlar..."></textarea>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="bloodType" data-en="Blood Type (Optional)" data-ar="فصيلة الدم (اختياري)" data-tr="Kan Grubu (İsteğe Bağlı)">Blood Type (Optional)</label>
+                        <select id="bloodType" name="bloodType">
+                            <option value="" data-en="Select Blood Type" data-ar="اختر فصيلة الدم" data-tr="Kan Grubu Seçin">Select Blood Type</option>
+                            <option value="A+">A+</option>
+                            <option value="A-">A-</option>
+                            <option value="B+">B+</option>
+                            <option value="B-">B-</option>
+                            <option value="AB+">AB+</option>
+                            <option value="AB-">AB-</option>
+                            <option value="O+">O+</option>
+                            <option value="O-">O-</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="allergies" data-en="Allergies (Optional)" data-ar="الحساسيات (اختياري)" data-tr="Alerjiler (İsteğe Bağlı)">Allergies (Optional)</label>
+                        <input type="text" id="allergies" name="allergies" 
+                               data-placeholder-en="List any allergies..."
+                               data-placeholder-ar="اذكر أي حساسيات..."
+                               data-placeholder-tr="Alerjileri listeleyin...">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label style="margin-bottom: 15px; font-size: 1.1rem; color: #1e40af; display: block;" 
+                           data-en="Emergency Contact (Optional)" data-ar="جهة الاتصال في حالات الطوارئ (اختياري)" data-tr="Acil Durum İletişim (İsteğe Bağlı)">Emergency Contact (Optional)</label>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="emergencyContactName" data-en="Contact Name" data-ar="اسم جهة الاتصال" data-tr="İletişim Adı">Contact Name</label>
+                            <input type="text" id="emergencyContactName" name="emergencyContactName">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactPhone" data-en="Contact Phone" data-ar="هاتف جهة الاتصال" data-tr="İletişim Telefonu">Contact Phone</label>
+                            <input type="tel" id="emergencyContactPhone" name="emergencyContactPhone">
+                        </div>
+                        <div class="form-group">
+                            <label for="emergencyContactRelation" data-en="Relationship" data-ar="العلاقة" data-tr="İlişki">Relationship</label>
+                            <input type="text" id="emergencyContactRelation" name="emergencyContactRelation" 
+                                   data-placeholder-en="e.g., Spouse, Parent..."
+                                   data-placeholder-ar="مثل: زوج، والد..."
+                                   data-placeholder-tr="örn. Eş, Ebeveyn...">
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="register-button" data-en="Register" data-ar="تسجيل" data-tr="Kayıt Ol">Register</button>
+            </form>
+            
+            <div class="login-link">
+                <p data-en="Already have an account?" data-ar="هل لديك حساب بالفعل؟" data-tr="Zaten bir hesabınız var mı?">Already have an account? 
+                    <a href="login.html" data-en="Login here" data-ar="سجل الدخول هنا" data-tr="Buradan giriş yapın">Login here</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="api-client.js"></script>
+    <script src="auth-api.js"></script>
+    <script>
+        // Initialize language
+        if (typeof initLanguage === 'function') {
+            initLanguage();
+        }
+        
+        // Set max date for date of birth (must be in the past)
+        document.getElementById('dateOfBirth').max = new Date().toISOString().split('T')[0];
+        
+        // Update textarea placeholder based on language
+        function updatePlaceholders() {
+            const lang = window.currentLanguage || 'en';
+            const medicalHistory = document.getElementById('medicalHistory');
+            if (medicalHistory) {
+                const placeholder = medicalHistory.getAttribute(`data-placeholder-${lang}`);
+                if (placeholder) medicalHistory.placeholder = placeholder;
+            }
+        }
+        
+        // Registration form submission
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const errorMsg = document.getElementById('errorMessage');
+            const successMsg = document.getElementById('successMessage');
+            errorMsg.style.display = 'none';
+            successMsg.style.display = 'none';
+            
+            // Get form data
+            const formData = new FormData(this);
+            const password = formData.get('password');
+            const confirmPassword = formData.get('confirmPassword');
+            
+            // Validate passwords match
+            if (password !== confirmPassword) {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    errorMsg.textContent = 'كلمات المرور غير متطابقة';
+                } else if (lang === 'tr') {
+                    errorMsg.textContent = 'Şifreler eşleşmiyor';
+                } else {
+                    errorMsg.textContent = 'Passwords do not match';
+                }
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // Validate password length
+            if (password.length < 6) {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    errorMsg.textContent = 'كلمة المرور يجب أن تكون 6 أحرف على الأقل';
+                } else if (lang === 'tr') {
+                    errorMsg.textContent = 'Şifre en az 6 karakter olmalıdır';
+                } else {
+                    errorMsg.textContent = 'Password must be at least 6 characters';
+                }
+                errorMsg.style.display = 'block';
+                return;
+            }
+            
+            // Create patient data
+            const patientData = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                password: password,
+                phone: formData.get('phone'),
+                dateOfBirth: formData.get('dateOfBirth'),
+                gender: formData.get('gender'),
+                address: formData.get('address'),
+                medicalHistory: formData.get('medicalHistory'),
+                bloodType: formData.get('bloodType'),
+                allergies: formData.get('allergies'),
+                emergencyContactName: formData.get('emergencyContactName'),
+                emergencyContactPhone: formData.get('emergencyContactPhone'),
+                emergencyContactRelation: formData.get('emergencyContactRelation')
+            };
+            
+            // Register patient
+            try {
+                const result = await window.auth.registerPatient(patientData);
+                
+                if (result.success) {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    successMsg.textContent = 'تم التسجيل بنجاح! جاري إعادة التوجيه...';
+                } else if (lang === 'tr') {
+                    successMsg.textContent = 'Kayıt başarılı! Yönlendiriliyorsunuz...';
+                } else {
+                    successMsg.textContent = 'Registration successful! Redirecting...';
+                }
+                successMsg.style.display = 'block';
+                
+                // Auto login after registration
+                setTimeout(() => {
+                    window.auth.login(patientData.email, patientData.password);
+                    window.location.href = 'index.html';
+                }, 1500);
+            } else {
+                const lang = window.currentLanguage || 'en';
+                if (lang === 'ar') {
+                    errorMsg.textContent = 'البريد الإلكتروني مسجل بالفعل';
+                } else if (lang === 'tr') {
+                    errorMsg.textContent = 'Bu e-posta adresi zaten kayıtlı';
+                } else {
+                    errorMsg.textContent = result.message || 'Registration failed. Please try again.';
+                }
+                errorMsg.style.display = 'block';
+            }
+        });
+        
+        // Update placeholders when language changes
+        const languageToggle = document.getElementById('languageToggle');
+        if (languageToggle) {
+            languageToggle.addEventListener('click', function() {
+                setTimeout(updatePlaceholders, 100);
+            });
+        }
+        
+        // Initial placeholder update
+        updatePlaceholders();
+    </script>
+</body>
+</html>
+

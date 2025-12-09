@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Care Point - Medical Appointments</title>
+    
+    <!-- Meta tags for social media sharing -->
+    <meta name="description" content="Care Point Medical Center - Your Health, Our Priority. Book appointments with the best doctors in various specialties including Cardiology, Neurology, Orthopedics, Pediatrics, Dermatology, and Gynecology.">
+    <meta name="keywords" content="medical center, doctors, appointments, healthcare, cardiology, neurology, orthopedics, pediatrics, dermatology, gynecology">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://carepoint-medical.com/">
+    <meta property="og:title" content="Care Point - Medical Center">
+    <meta property="og:description" content="Your Health, Our Priority. Book appointments with the best doctors in various specialties including Cardiology, Neurology, Orthopedics, Pediatrics, Dermatology, and Gynecology.">
+    <meta property="og:image" content="./logo.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Care Point Medical Center Logo">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://carepoint-medical.com/">
+    <meta property="twitter:title" content="Care Point - Medical Center">
+    <meta property="twitter:description" content="Your Health, Our Priority. Book appointments with the best doctors in various specialties including Cardiology, Neurology, Orthopedics, Pediatrics, Dermatology, and Gynecology.">
+    <meta property="twitter:image" content="./logo.png">
+    <meta property="twitter:image:alt" content="Care Point Medical Center Logo">
+    
+    <!-- WhatsApp -->
+    <meta property="og:site_name" content="Care Point Medical Center">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:locale:alternate" content="ar_SA">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header - Main Navigation -->
+    <header class="header">
+        <div class="container">
+            <div class="logo-section">
+                <a href="index.html" class="logo">
+                    <i class="fas fa-heartbeat"></i>
+                    <span class="logo-text">Care Point</span>
+                </a>
+                <p class="slogan" data-en="Your Health, Our Priority" data-ar="صحتك، أولويتنا" data-tr="Sağlığınız, Önceliğimiz">Your Health, Our Priority</p>
+            </div>
+            
+            <ul class="main-nav">
+                <li><a href="index.html" class="nav-link active" data-en="Home" data-ar="الرئيسية" data-tr="Ana Sayfa">Home</a></li>
+                <li class="nav-dropdown">
+                    <a href="#" class="nav-link dropdown-toggle" data-en="Departments" data-ar="الأقسام" data-tr="Bölümler">
+                        <span data-en="Departments" data-ar="الأقسام" data-tr="Bölümler">Departments</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="cardiology.html" class="dropdown-link" data-en="Cardiology" data-ar="أمراض القلب" data-tr="Kardiyoloji">Cardiology</a></li>
+                        <li><a href="neurology.html" class="dropdown-link" data-en="Neurology" data-ar="الأعصاب" data-tr="Nöroloji">Neurology</a></li>
+                        <li><a href="orthopedics.html" class="dropdown-link" data-en="Orthopedics" data-ar="العظام" data-tr="Ortopedi">Orthopedics</a></li>
+                        <li><a href="pediatrics.html" class="dropdown-link" data-en="Pediatrics" data-ar="طب الأطفال" data-tr="Pediatri">Pediatrics</a></li>
+                        <li><a href="dermatology.html" class="dropdown-link" data-en="Dermatology" data-ar="الأمراض الجلدية" data-tr="Dermatoloji">Dermatology</a></li>
+                        <li><a href="gynecology.html" class="dropdown-link" data-en="Gynecology" data-ar="أمراض النساء" data-tr="Jinekoloji">Gynecology</a></li>
+                    </ul>
+                </li>
+                <li><a href="#appointments" class="nav-link" data-en="Book Appointment" data-ar="احجز موعد" data-tr="Randevu Al">Book Appointment</a></li>
+                <li><a href="#contact" class="nav-link" data-en="Contact" data-ar="اتصل بنا" data-tr="İletişim">Contact</a></li>
+            </ul>
+            
+            <div class="header-actions">
+                <div id="userInfo" style="display: none; margin-right: 15px; color: white; font-size: 0.9rem;">
+                    <i class="fas fa-user"></i>
+                    <span id="userName"></span>
+                </div>
+                <div id="authButtons" style="display: flex; gap: 10px; align-items: center; margin-right: 15px;">
+                    <!-- Auth buttons will be inserted here by JavaScript -->
+                </div>
+                <div class="language-select-wrapper">
+                    <select class="language-select" id="languageSelect">
+                        <option value="ar">العربية</option>
+                        <option value="en">English</option>
+                        <option value="tr">Türkçe</option>
+                    </select>
+                </div>
+                <button class="hamburger" id="hamburger">
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                    <span class="hamburger-line"></span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title" data-en="Welcome to Care Point" data-ar="مرحباً بك في Care Point" data-tr="Care Point'a Hoş Geldiniz">Welcome to Care Point</h1>
+                    <p class="hero-subtitle" data-en="Book your medical appointment with the best doctors" data-ar="احجز موعدك الطبي مع أفضل الأطباء" data-tr="En iyi doktorlarla tıbbi randevunuzu alın">Book your medical appointment with the best doctors</p>
+                    <button class="cta-button" data-en="Book Now" data-ar="احجز الآن" data-tr="Şimdi Rezervasyon Yap">Book Now</button>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Departments Section -->
+        <section id="departments" class="departments">
+            <div class="container">
+                <h2 class="section-title" data-en="Medical Departments" data-ar="الأقسام الطبية" data-tr="Tıbbi Bölümler">Medical Departments</h2>
+                <div class="departments-grid">
+                    <a href="cardiology.html" class="department-card" data-department="cardiology">
+                        <div class="department-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Cardiology" data-ar="أمراض القلب" data-tr="Kardiyoloji">Cardiology</h3>
+                            <p data-en="Heart and cardiovascular care" data-ar="رعاية القلب والأوعية الدموية" data-tr="Kalp ve kardiyovasküler bakım">Heart and cardiovascular care</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="neurology.html" class="department-card" data-department="neurology">
+                        <div class="department-icon">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Neurology" data-ar="الأعصاب" data-tr="Nöroloji">Neurology</h3>
+                            <p data-en="Brain and nervous system care" data-ar="رعاية الدماغ والجهاز العصبي" data-tr="Beyin ve sinir sistemi bakımı">Brain and nervous system care</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="orthopedics.html" class="department-card" data-department="orthopedics">
+                        <div class="department-icon">
+                            <i class="fas fa-bone"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Orthopedics" data-ar="العظام" data-tr="Ortopedi">Orthopedics</h3>
+                            <p data-en="Bone and joint care" data-ar="رعاية العظام والمفاصل" data-tr="Kemik ve eklem bakımı">Bone and joint care</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="pediatrics.html" class="department-card" data-department="pediatrics">
+                        <div class="department-icon">
+                            <i class="fas fa-child"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Pediatrics" data-ar="طب الأطفال" data-tr="Pediatri">Pediatrics</h3>
+                            <p data-en="Children's health care" data-ar="رعاية صحة الأطفال" data-tr="Çocuk sağlığı bakımı">Children's health care</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="dermatology.html" class="department-card" data-department="dermatology">
+                        <div class="department-icon">
+                            <i class="fas fa-hand-holding-medical"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Dermatology" data-ar="الأمراض الجلدية" data-tr="Dermatoloji">Dermatology</h3>
+                            <p data-en="Skin care and treatment" data-ar="رعاية وعلاج الجلد" data-tr="Cilt bakımı ve tedavisi">Skin care and treatment</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="gynecology.html" class="department-card" data-department="gynecology">
+                        <div class="department-icon">
+                            <i class="fas fa-female"></i>
+                        </div>
+                        <div class="department-content">
+                            <h3 data-en="Gynecology" data-ar="أمراض النساء" data-tr="Jinekoloji">Gynecology</h3>
+                            <p data-en="Women's health care" data-ar="رعاية صحة المرأة" data-tr="Kadın sağlığı bakımı">Women's health care</p>
+                            <div class="department-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- Appointment Booking Section -->
+        <section id="appointments" class="appointments">
+            <div class="container">
+                <h2 class="section-title" data-en="Book Your Appointment" data-ar="احجز موعدك" data-tr="Randevunuzu Alın">Book Your Appointment</h2>
+                <div class="appointment-form">
+                    <div class="form-group">
+                        <label for="selectedDoctor" data-en="Select Doctor:" data-ar="اختر الطبيب:" data-tr="Doktor Seçin:">Select Doctor:</label>
+                        <select id="selectedDoctor">
+                            <option value="" data-en="Choose a doctor" data-ar="اختر طبيب" data-tr="Bir doktor seçin">Choose a doctor</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentDate" data-en="Select Date:" data-ar="اختر التاريخ:" data-tr="Tarih Seçin:">Select Date:</label>
+                        <input type="date" id="appointmentDate" min="">
+                    </div>
+                    <div class="form-group">
+                        <label for="appointmentTime" data-en="Select Time:" data-ar="اختر الوقت:" data-tr="Saat Seçin:">Select Time:</label>
+                        <select id="appointmentTime">
+                            <option value="" data-en="Choose time" data-ar="اختر الوقت" data-tr="Saat seçin">Choose time</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientName" data-en="Your Name:" data-ar="اسمك:" data-tr="Adınız:">Your Name:</label>
+                        <input type="text" id="patientName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="patientPhone" data-en="Phone Number:" data-ar="رقم الهاتف:" data-tr="Telefon Numarası:">Phone Number:</label>
+                        <input type="tel" id="patientPhone" required>
+                    </div>
+                    <button class="book-button" data-en="Book Appointment" data-ar="احجز الموعد" data-tr="Randevu Al">Book Appointment</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact">
+            <div class="container">
+                <h2 class="section-title" data-en="Contact Us" data-ar="اتصل بنا" data-tr="Bize Ulaşın">Contact Us</h2>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <span data-en="+20 2 1234 5678" data-ar="+20 2 1234 5678">+20 2 1234 5678</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <span data-en="info@carepoint.com" data-ar="info@carepoint.com">info@carepoint.com</span>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span data-en="Cairo, Egypt" data-ar="القاهرة، مصر">Cairo, Egypt</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="logo">
+                        <i class="fas fa-heartbeat"></i>
+                        <span>Care Point</span>
+                    </div>
+                    <p data-en="Your trusted healthcare partner" data-ar="شريكك الموثوق في الرعاية الصحية" data-tr="Güvenilir sağlık hizmeti ortağınız">Your trusted healthcare partner</p>
+                    <p data-en="Providing exceptional medical care with compassion and expertise" data-ar="نقدم رعاية طبية استثنائية مع الرحمة والخبرة" data-tr="Şefkat ve uzmanlıkla olağanüstü tıbbi bakım sunuyoruz">Providing exceptional medical care with compassion and expertise</p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Quick Links" data-ar="روابط سريعة" data-tr="Hızlı Bağlantılar">Quick Links</h3>
+                    <ul>
+                        <li><a href="index.html" data-en="Home" data-ar="الرئيسية" data-tr="Ana Sayfa">Home</a></li>
+                        <li><a href="cardiology.html" data-en="Cardiology" data-ar="أمراض القلب" data-tr="Kardiyoloji">Cardiology</a></li>
+                        <li><a href="neurology.html" data-en="Neurology" data-ar="الأعصاب" data-tr="Nöroloji">Neurology</a></li>
+                        <li><a href="orthopedics.html" data-en="Orthopedics" data-ar="العظام" data-tr="Ortopedi">Orthopedics</a></li>
+                        <li><a href="pediatrics.html" data-en="Pediatrics" data-ar="طب الأطفال" data-tr="Pediatri">Pediatrics</a></li>
+                        <li><a href="dermatology.html" data-en="Dermatology" data-ar="الأمراض الجلدية" data-tr="Dermatoloji">Dermatology</a></li>
+                        <li><a href="gynecology.html" data-en="Gynecology" data-ar="أمراض النساء" data-tr="Jinekoloji">Gynecology</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Contact Info" data-ar="معلومات الاتصال" data-tr="İletişim Bilgileri">Contact Info</h3>
+                    <p><i class="fas fa-phone"></i> +20 123 456 7890</p>
+                    <p><i class="fas fa-envelope"></i> info@carepoint-medical.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Cairo, Egypt</p>
+                    <p><i class="fas fa-clock"></i> <span data-en="24/7 Emergency Service" data-ar="خدمة طوارئ 24/7" data-tr="7/24 Acil Servis">24/7 Emergency Service</span></p>
+                </div>
+                <div class="footer-section">
+                    <h3 data-en="Follow Us" data-ar="تابعنا" data-tr="Bizi Takip Edin">Follow Us</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p data-en="© 2024 Care Point. All rights reserved." data-ar="© 2024 نقطة العناية. جميع الحقوق محفوظة." data-tr="© 2024 Care Point. Tüm hakları saklıdır.">© 2024 Care Point. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Doctor Booking Modal -->
+    <div id="doctorBookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeDoctorBooking()">&times;</span>
+            <div class="modal-header">
+                <h2 id="doctorBookingTitle" data-en="Book Appointment with" data-ar="احجز موعد مع" data-tr="Randevu Al">Book Appointment with</h2>
+                <div class="selected-doctor-info" id="selectedDoctorInfo">
+                    <!-- Doctor info will be populated here -->
+                </div>
+            </div>
+            <form id="doctorBookingForm" class="appointment-form">
+                <div class="form-group">
+                    <label for="doctorBookingDate" data-en="Select Date:" data-ar="اختر التاريخ:" data-tr="Tarih Seçin:">Select Date:</label>
+                    <input type="date" id="doctorBookingDate" required>
+                </div>
+                <div class="form-group">
+                    <label for="doctorBookingTime" data-en="Select Time:" data-ar="اختر الوقت:" data-tr="Saat Seçin:">Select Time:</label>
+                    <select id="doctorBookingTime" required>
+                        <option value="" data-en="Choose time" data-ar="اختر الوقت" data-tr="Saat seçin">Choose time</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="patientName" data-en="Your Name:" data-ar="اسمك:" data-tr="Adınız:">Your Name:</label>
+                    <input type="text" id="patientName" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientPhone" data-en="Phone Number:" data-ar="رقم الهاتف:" data-tr="Telefon Numarası:">Phone Number:</label>
+                    <input type="tel" id="patientPhone" required>
+                </div>
+                <div class="form-group">
+                    <label for="patientEmail" data-en="Email:" data-ar="البريد الإلكتروني:" data-tr="E-posta:">Email:</label>
+                    <input type="email" id="patientEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="appointmentNotes" data-en="Additional Notes:" data-ar="ملاحظات إضافية:" data-tr="Ek Notlar:">Additional Notes:</label>
+                    <textarea id="appointmentNotes" rows="3"></textarea>
+                </div>
+                <button type="submit" class="btn-primary" data-en="Book Appointment" data-ar="احجز الموعد" data-tr="Randevu Al">Book Appointment</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h3 data-en="Appointment Booked Successfully!" data-ar="تم حجز الموعد بنجاح!" data-tr="Randevu Başarıyla Alındı!">Appointment Booked Successfully!</h3>
+            <p data-en="Your appointment has been confirmed. We will contact you soon." data-ar="تم تأكيد موعدك. سنتواصل معك قريباً." data-tr="Randevunuz onaylandı. Yakında sizinle iletişime geçeceğiz.">Your appointment has been confirmed. We will contact you soon.</p>
+        </div>
+    </div>
+
+    <!-- Chatbot Widget -->
+    <div class="chatbot-container" id="chatbotContainer">
+        <div class="chatbot-button" id="chatbotButton">
+            <i class="fas fa-comments"></i>
+            <span class="chatbot-badge" id="chatbotBadge">1</span>
+        </div>
+        <div class="chatbot-window" id="chatbotWindow">
+            <div class="chatbot-header">
+                <div class="chatbot-header-content">
+                    <i class="fas fa-robot"></i>
+                    <div>
+                        <h3 data-en="Care Point Assistant" data-ar="مساعد كير بوينت" data-tr="Care Point Asistanı">Care Point Assistant</h3>
+                        <p data-en="How can I help you today?" data-ar="كيف يمكنني مساعدتك اليوم؟" data-tr="Bugün size nasıl yardımcı olabilirim?">How can I help you today?</p>
+                    </div>
+                </div>
+                <button class="chatbot-close" id="chatbotClose">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="chatbot-messages" id="chatbotMessages">
+                <div class="chatbot-message bot-message">
+                    <div class="message-content">
+                        <p data-en="Hello! I'm here to help you find the right department. Please describe your symptoms or how you're feeling, and I'll guide you to the appropriate specialist." data-ar="مرحباً! أنا هنا لمساعدتك في العثور على القسم المناسب. يرجى وصف أعراضك أو ما تشعر به، وسأوجهك إلى الأخصائي المناسب." data-tr="Merhaba! Size doğru bölümü bulmanızda yardımcı olmak için buradayım. Lütfen semptomlarınızı veya nasıl hissettiğinizi açıklayın, size uygun uzmana yönlendireceğim.">Hello! I'm here to help you find the right department. Please describe your symptoms or how you're feeling, and I'll guide you to the appropriate specialist.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="chatbot-input-container">
+                <input type="text" id="chatbotInput" class="chatbot-input" 
+                       data-placeholder-en="Type your symptoms or question..." 
+                       data-placeholder-ar="اكتب أعراضك أو سؤالك..."
+                       data-placeholder-tr="Semptomlarınızı veya sorunuzu yazın..."
+                       placeholder="Type your symptoms or question...">
+                <button class="chatbot-send" id="chatbotSend">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="doctors.js"></script>
+    <script src="api-client.js"></script>
+    <script src="auth-api.js"></script>
+    <script src="script.js"></script>
+    <script src="chatbot.js"></script>
+    <script>
+        // Redirect doctors to dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            if (window.auth && window.auth.isLoggedIn() && window.auth.getCurrentUserRole() === 'doctor') {
+                window.location.href = 'doctor-dashboard.html';
+                return;
+            }
+        });
+        
+        // Update navigation based on auth status
+        function updateAuthNavigation() {
+            const authButtons = document.getElementById('authButtons');
+            const userInfo = document.getElementById('userInfo');
+            const userName = document.getElementById('userName');
+            
+            if (!authButtons) return;
+            
+            // Get current language
+            const lang = window.currentLanguage || 'en';
+            
+            if (window.auth && window.auth.isLoggedIn()) {
+                const user = window.auth.getCurrentUser();
+                const role = window.auth.getCurrentUserRole();
+                
+                // Show user info
+                if (userInfo && userName) {
+                    userInfo.style.display = 'block';
+                    // Handle name - could be string or object with language keys
+                    let displayName = user.email;
+                    if (user.name) {
+                        if (typeof user.name === 'string') {
+                            displayName = user.name;
+                        } else if (typeof user.name === 'object' && user.name[lang]) {
+                            displayName = user.name[lang];
+                        } else if (typeof user.name === 'object' && user.name.en) {
+                            displayName = user.name.en;
+                        }
+                    }
+                    userName.textContent = displayName;
+                    
+                    // Add dashboard link for doctors
+                    if (role === 'doctor') {
+                        userInfo.innerHTML = `
+                            <a href="doctor-dashboard.html" style="color: white; text-decoration: none; display: flex; align-items: center; gap: 8px;">
+                                <i class="fas fa-user-md"></i>
+                                <span>${displayName}</span>
+                            </a>
+                        `;
+                    } else {
+                        userInfo.innerHTML = `
+                            <i class="fas fa-user"></i>
+                            <span>${displayName}</span>
+                        `;
+                    }
+                }
+                
+                // Hide auth buttons and show logout
+                const logoutText = lang === 'ar' ? 'تسجيل الخروج' : lang === 'tr' ? 'Çıkış Yap' : 'Logout';
+                authButtons.innerHTML = `
+                    <a href="#" id="logoutBtn" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; background: rgba(255,255,255,0.2); transition: background 0.3s;" 
+                       onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+                       onmouseout="this.style.background='rgba(255,255,255,0.2)'"
+                       data-en="Logout" data-ar="تسجيل الخروج" data-tr="Çıkış Yap">${logoutText}</a>
+                `;
+                
+                // Add logout event listener
+                const logoutBtn = document.getElementById('logoutBtn');
+                if (logoutBtn) {
+                    logoutBtn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        window.auth.logout();
+                    });
+                }
+            } else {
+                // Hide user info
+                if (userInfo) userInfo.style.display = 'none';
+                
+                // Add login/register buttons with proper language
+                const loginText = lang === 'ar' ? 'تسجيل الدخول' : lang === 'tr' ? 'Giriş Yap' : 'Login';
+                const registerText = lang === 'ar' ? 'تسجيل' : lang === 'tr' ? 'Kayıt Ol' : 'Register';
+                
+                authButtons.innerHTML = `
+                    <a href="login.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; background: rgba(255,255,255,0.2); transition: background 0.3s;" 
+                       onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+                       onmouseout="this.style.background='rgba(255,255,255,0.2)'"
+                       data-en="Login" data-ar="تسجيل الدخول" data-tr="Giriş Yap">${loginText}</a>
+                    <a href="register.html" style="color: white; text-decoration: none; padding: 8px 15px; border-radius: 5px; background: rgba(255,255,255,0.2); transition: background 0.3s;" 
+                       onmouseover="this.style.background='rgba(255,255,255,0.3)'" 
+                       onmouseout="this.style.background='rgba(255,255,255,0.2)'"
+                       data-en="Register" data-ar="تسجيل" data-tr="Kayıt Ol">${registerText}</a>
+                `;
+            }
+        }
+        
+        // Initialize auth navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            updateAuthNavigation();
+        });
+    </script>
+</body>
+</html>
