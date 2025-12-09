@@ -32,19 +32,28 @@ app.use((req, res, next) => {
     next();
 });
 
-// Serve static files
-app.use(express.static(path.join(__dirname)));
-
-// API Routes - Load routes first
+// API Routes - MUST be loaded BEFORE static files
 try {
     app.use('/api/auth', require('./routes/auth'));
     app.use('/api/patients', require('./routes/patients'));
     app.use('/api/appointments', require('./routes/appointments'));
     app.use('/api/doctors', require('./routes/doctors'));
-    console.log('API routes loaded successfully');
+    console.log('✓ API routes loaded successfully');
 } catch (error) {
-    console.error('Error loading API routes:', error);
+    console.error('✗ Error loading API routes:', error);
+    console.error('Stack:', error.stack);
     // Continue anyway - static files will still work
+}
+
+// Serve static files (AFTER API routes)
+try {
+    app.use(express.static(path.join(__dirname), {
+        index: false, // Don't auto-serve index.html
+        dotfiles: 'ignore'
+    }));
+    console.log('✓ Static file serving configured');
+} catch (error) {
+    console.error('✗ Error configuring static files:', error);
 }
 
 // Run migrations on startup (only if DATABASE_URL is set) - Don't block server start
@@ -65,9 +74,27 @@ if (process.env.DATABASE_URL) {
     console.warn('Please add DATABASE_URL environment variable in Railway settings.');
 }
 
-// Serve index.html for all routes (SPA fallback)
-app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'index.html'));
+// Serve index.html for all non-API routes (SPA fallback)
+// This MUST be after API routes and static files
+app.get('*', (req, res, next) => {
+    // Skip API routes and health check
+    if (req.path.startsWith('/api/') || req.path === '/health') {
+        return next();
+    }
+    
+    const indexPath = path.join(__dirname, 'index.html');
+    console.log(`Serving index.html for: ${req.path}`);
+    
+    res.sendFile(indexPath, (err) => {
+        if (err) {
+            console.error('Error sending index.html:', err);
+            if (err.code === 'ENOENT') {
+                res.status(404).send('index.html not found');
+            } else {
+                res.status(500).send('Error loading page');
+            }
+        }
+    });
 });
 
 // Error handling middleware (must be last)
