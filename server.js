@@ -38,6 +38,7 @@ try {
     app.use('/api/patients', require('./routes/patients'));
     app.use('/api/appointments', require('./routes/appointments'));
     app.use('/api/doctors', require('./routes/doctors'));
+    app.use('/api/migrate', require('./routes/migrate'));
     console.log('✓ API routes loaded successfully');
 } catch (error) {
     console.error('✗ Error loading API routes:', error);
