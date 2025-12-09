@@ -1,11 +1,30 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcryptjs');
-const pool = require('../config/database');
 const { body, validationResult } = require('express-validator');
 
+// Lazy load database to avoid errors if DATABASE_URL is not set
+let pool;
+try {
+    pool = require('../config/database');
+} catch (error) {
+    console.error('Database config error:', error);
+    pool = null;
+}
+
+// Check database availability
+const checkDatabase = (req, res, next) => {
+    if (!pool || !process.env.DATABASE_URL) {
+        return res.status(503).json({ 
+            success: false, 
+            message: 'Database not configured. Please set DATABASE_URL environment variable.' 
+        });
+    }
+    next();
+};
+
 // Register Patient
-router.post('/register', [
+router.post('/register', checkDatabase, [
     body('email').isEmail().normalizeEmail(),
     body('password').isLength({ min: 6 }),
     body('name').notEmpty().trim(),
@@ -87,7 +106,7 @@ router.post('/register', [
 });
 
 // Login (Patient or Doctor)
-router.post('/login', [
+router.post('/login', checkDatabase, [
     body('email').isEmail().normalizeEmail(),
     body('password').notEmpty(),
     body('role').isIn(['patient', 'doctor'])
@@ -177,7 +196,7 @@ router.post('/login', [
 });
 
 // Get current user (from session)
-router.get('/me', async (req, res) => {
+router.get('/me', checkDatabase, async (req, res) => {
     try {
         const userId = req.headers['x-user-id'];
         const userRole = req.headers['x-user-role'];

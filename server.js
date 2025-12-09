@@ -20,9 +20,21 @@ app.use(express.urlencoded({ extended: true }));
 // Serve static files
 app.use(express.static(path.join(__dirname)));
 
-// Run migrations on startup (only if DATABASE_URL is set)
-(async () => {
-    if (process.env.DATABASE_URL) {
+// API Routes - Load routes first
+try {
+    app.use('/api/auth', require('./routes/auth'));
+    app.use('/api/patients', require('./routes/patients'));
+    app.use('/api/appointments', require('./routes/appointments'));
+    app.use('/api/doctors', require('./routes/doctors'));
+    console.log('API routes loaded successfully');
+} catch (error) {
+    console.error('Error loading API routes:', error);
+    // Continue anyway - static files will still work
+}
+
+// Run migrations on startup (only if DATABASE_URL is set) - Don't block server start
+if (process.env.DATABASE_URL) {
+    (async () => {
         try {
             console.log('Running database migrations...');
             const migrate = require('./migrations/migrate');
@@ -30,20 +42,13 @@ app.use(express.static(path.join(__dirname)));
             console.log('Migrations completed successfully');
         } catch (error) {
             console.error('Migration error:', error.message);
-            console.error('Server will start anyway, but database features may not work');
-            console.error('Please check DATABASE_URL and ensure PostgreSQL is running');
+            console.error('Server will continue, but database features may not work');
         }
-    } else {
-        console.warn('WARNING: DATABASE_URL not set. Database features will not work.');
-        console.warn('Please add DATABASE_URL environment variable in Railway settings.');
-    }
-})();
-
-// API Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/patients', require('./routes/patients'));
-app.use('/api/appointments', require('./routes/appointments'));
-app.use('/api/doctors', require('./routes/doctors'));
+    })();
+} else {
+    console.warn('WARNING: DATABASE_URL not set. Database features will not work.');
+    console.warn('Please add DATABASE_URL environment variable in Railway settings.');
+}
 
 // Serve index.html for all routes (SPA fallback)
 app.get('*', (req, res) => {
@@ -60,8 +65,28 @@ app.use((err, req, res, next) => {
     });
 });
 
-app.listen(PORT, () => {
+// Start server
+const server = app.listen(PORT, '0.0.0.0', () => {
     console.log(`Server running on port ${PORT}`);
     console.log(`Environment: ${process.env.NODE_ENV || 'development'}`);
+    console.log(`Server is ready to accept connections`);
+});
+
+// Handle server errors
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use`);
+    } else {
+        console.error('Server error:', error);
+    }
+    process.exit(1);
+});
+
+// Graceful shutdown
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server');
+    server.close(() => {
+        console.log('HTTP server closed');
+    });
 });
 
